@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { updateStoryStatus, getAllStories } from "@/lib/kv";
+import { updateStoryStatus, getAllStories } from "@/lib/supabase";
 
 export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const cookieStore = await cookies();

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { getAllStories, getStoriesByStatus, PublicStory } from "@/lib/kv";
+import { getAllStories, getStoriesByStatus, PublicStory } from "@/lib/supabase";
 
 export async function GET(req: Request) {
   const cookieStore = await cookies();

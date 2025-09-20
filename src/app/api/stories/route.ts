@@ -6,7 +6,7 @@ import {
   savePrivateInfo, 
   PublicStory, 
   PrivateInfo 
-} from "@/lib/kv";
+} from "@/lib/supabase";
 
 // 簡單去識別：遮蔽 email / 手機
 function sanitizeText(t: string) {
@@ -63,17 +63,16 @@ export async function POST(req: NextRequest) {
   const id = crypto.randomUUID();
   const now = new Date().toISOString();
 
-  const newStory: PublicStory = {
+  const newStory = {
     id,
     persona: safePersona,
     content: safeContent,
-    createdAt: now,
-    status: "pending", // ← 由原本 published 改為 pending
+    status: "pending" as const,
   };
-  const priv: PrivateInfo = {
-    storyId: id,
-    authorName,
-    authorContact,
+  const priv = {
+    story_id: id,
+    author_name: authorName,
+    author_contact: authorContact,
   };
 
   await saveStory(newStory);
