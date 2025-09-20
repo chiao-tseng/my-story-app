@@ -55,19 +55,33 @@ export default function SubmitPage() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
 
       if (response.ok) {
-        alert("已送出！等待審核。通過後會公開在「故事」頁面。");
-        window.location.href = "/stories"; // 送出後直接看列表
+        try {
+          const data = await response.json();
+          console.log('Response data:', data);
+          alert("已送出！等待審核。通過後會公開在「故事」頁面。");
+          window.location.href = "/stories"; // 送出後直接看列表
+        } catch (jsonError) {
+          console.error('JSON 解析錯誤:', jsonError);
+          alert("提交成功，但回應格式有問題");
+          window.location.href = "/stories";
+        }
       } else {
-        // 顯示具體的錯誤訊息
-        const errorMessage = data.error || "提交失敗，請檢查欄位內容";
-        alert(`提交失敗：${errorMessage}`);
-        console.error('提交失敗詳細資訊:', data);
+        try {
+          const data = await response.json();
+          const errorMessage = data.error || "提交失敗，請檢查欄位內容";
+          alert(`提交失敗：${errorMessage}`);
+          console.error('提交失敗詳細資訊:', data);
+        } catch (jsonError) {
+          console.error('錯誤回應 JSON 解析失敗:', jsonError);
+          alert(`提交失敗：HTTP ${response.status}`);
+        }
       }
     } catch (error) {
-      console.error('提交失敗:', error);
+      console.error('網路請求失敗:', error);
       alert("提交失敗，請檢查網路連線");
     } finally {
       setIsSubmitting(false);
