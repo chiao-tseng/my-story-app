@@ -19,7 +19,7 @@ export default function HomePage() {
           <div>
             <h2 className="magazine-heading mb-4">關於我們</h2>
             <p className="magazine-body leading-relaxed">
-              我們提供一個匿名分享的場域，讓每個人能為自己的行為負責、留下被傷害與學到的教訓。
+              我們提供一個匿名分享的場域，讓每個人用文字記錄壞蛋事蹟，期望像詐騙案例一樣能拿到警示愛情小白兔的作用。
               公開頁面只顯示匿名化內容；投稿者的姓名與聯絡方式僅供平台方保存與必要聯繫，不會公開。
             </p>
           </div>

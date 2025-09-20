@@ -67,9 +67,9 @@ export default function SubmitPage() {
       <div className="text-center mb-16">
         <div className="magazine-caption mb-4">SHARE YOUR STORY</div>
         <h1 className="magazine-title mb-6">分享你的故事</h1>
-        <p className="magazine-body text-gray-600 max-w-2xl mx-auto">
-          讓我們一起創造美好的故事集
-        </p>
+                <p className="magazine-body text-gray-600 max-w-2xl mx-auto">
+                  讓我們用文字發洩但不攻擊，情緒就留在這裡
+                </p>
       </div>
 
       {/* 雜誌風格表單 */}
