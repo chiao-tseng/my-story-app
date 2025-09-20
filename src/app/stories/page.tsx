@@ -19,8 +19,15 @@ export default function StoriesPage() {
   useEffect(() => {
     fetch("/api/stories", { cache: "no-store" })
       .then((r) => r.json())
-      .then((data) => setStories(data.stories || []))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        setStories(data.stories || []);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch stories:', error);
+        setStories([]);
+        setLoading(false);
+      });
   }, []);
 
   return (

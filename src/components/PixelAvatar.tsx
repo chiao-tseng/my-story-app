@@ -21,11 +21,8 @@ const avatarElements = {
     light: "#FDBCB4",      // 淺色皮膚
     medium: "#E8A87C",     // 中等皮膚
     dark: "#8B4513",       // 深色皮膚
-    pale: "#F5DEB3",       // 蒼白皮膚
     tan: "#D2B48C",        // 小麥色皮膚
-    olive: "#C19A6B",      // 橄欖色皮膚
-    brown: "#A0522D",      // 棕色皮膚
-    ebony: "#2F1B14"       // 深棕色皮膚
+    brown: "#A0522D"       // 棕色皮膚
   },
   hair: {
     black: "#2C1810",
@@ -34,19 +31,13 @@ const avatarElements = {
     red: "#A0522D",
     white: "#F5F5DC",
     blue: "#4169E1",
-    pink: "#FF69B4",
-    purple: "#8A2BE2",
-    green: "#228B22",
-    gray: "#808080"
+    pink: "#FF69B4"
   },
   eyes: {
     brown: "#8B4513",
     blue: "#4169E1",
     green: "#228B22",
-    black: "#2C1810",
-    hazel: "#DAA520",
-    gray: "#708090",
-    amber: "#FFBF00"
+    black: "#2C1810"
   },
   mouth: {
     smile: "smile",
