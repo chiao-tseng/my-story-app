@@ -18,10 +18,14 @@ interface PixelAvatarProps {
 // 預設的像素畫素材配置
 const avatarElements = {
   skin: {
-    light: "#FDBCB4",
-    medium: "#E8A87C", 
-    dark: "#8B4513",
-    pale: "#F5DEB3"
+    light: "#FDBCB4",      // 淺色皮膚
+    medium: "#E8A87C",     // 中等皮膚
+    dark: "#8B4513",       // 深色皮膚
+    pale: "#F5DEB3",       // 蒼白皮膚
+    tan: "#D2B48C",        // 小麥色皮膚
+    olive: "#C19A6B",      // 橄欖色皮膚
+    brown: "#A0522D",      // 棕色皮膚
+    ebony: "#2F1B14"       // 深棕色皮膚
   },
   hair: {
     black: "#2C1810",
@@ -30,14 +34,19 @@ const avatarElements = {
     red: "#A0522D",
     white: "#F5F5DC",
     blue: "#4169E1",
-    pink: "#FF69B4"
+    pink: "#FF69B4",
+    purple: "#8A2BE2",
+    green: "#228B22",
+    gray: "#808080"
   },
   eyes: {
     brown: "#8B4513",
     blue: "#4169E1",
     green: "#228B22",
     black: "#2C1810",
-    hazel: "#DAA520"
+    hazel: "#DAA520",
+    gray: "#708090",
+    amber: "#FFBF00"
   },
   mouth: {
     smile: "smile",
@@ -46,11 +55,21 @@ const avatarElements = {
     open: "open"
   },
   clothes: {
-    casual: "#FF6B6B",
-    formal: "#2C3E50",
-    sporty: "#3498DB",
-    casual2: "#9B59B6",
-    formal2: "#34495E"
+    red: "#FF6B6B",        // 紅色
+    blue: "#3498DB",       // 藍色
+    green: "#2ECC71",      // 綠色
+    yellow: "#F1C40F",     // 黃色
+    purple: "#9B59B6",     // 紫色
+    orange: "#E67E22",     // 橙色
+    pink: "#E91E63",       // 粉色
+    black: "#2C3E50",      // 黑色
+    white: "#ECF0F1",      // 白色
+    gray: "#95A5A6",       // 灰色
+    navy: "#34495E",       // 海軍藍
+    maroon: "#8B0000",     // 栗色
+    teal: "#16A085",       // 青綠色
+    coral: "#FF7F50",      // 珊瑚色
+    lavender: "#E6E6FA"    // 薰衣草色
   },
   accessories: {
     none: "none",
@@ -64,13 +83,16 @@ const avatarElements = {
 function parseDescription(description: string): AvatarConfig {
   const desc = description.toLowerCase();
   
-  // 皮膚顏色
+  // 皮膚顏色 - 更詳細的匹配
   let skin = "light";
-  if (desc.includes("黑") || desc.includes("深色")) skin = "dark";
-  else if (desc.includes("白") || desc.includes("淺")) skin = "pale";
-  else if (desc.includes("黃") || desc.includes("小麥")) skin = "medium";
+  if (desc.includes("黑") || desc.includes("深色") || desc.includes("深棕")) skin = "ebony";
+  else if (desc.includes("棕") || desc.includes("咖啡")) skin = "brown";
+  else if (desc.includes("橄欖")) skin = "olive";
+  else if (desc.includes("小麥") || desc.includes("古銅")) skin = "tan";
+  else if (desc.includes("白") || desc.includes("淺") || desc.includes("蒼白")) skin = "pale";
+  else if (desc.includes("黃") || desc.includes("中等")) skin = "medium";
   
-  // 頭髮顏色
+  // 頭髮顏色 - 更多選項
   let hair = "black";
   if (desc.includes("金") || desc.includes("黃")) hair = "blonde";
   else if (desc.includes("棕") || desc.includes("咖啡")) hair = "brown";
@@ -78,13 +100,18 @@ function parseDescription(description: string): AvatarConfig {
   else if (desc.includes("白") || desc.includes("銀")) hair = "white";
   else if (desc.includes("藍")) hair = "blue";
   else if (desc.includes("粉")) hair = "pink";
+  else if (desc.includes("紫")) hair = "purple";
+  else if (desc.includes("綠")) hair = "green";
+  else if (desc.includes("灰")) hair = "gray";
   
-  // 眼睛顏色
+  // 眼睛顏色 - 更多選項
   let eyes = "brown";
   if (desc.includes("藍眼")) eyes = "blue";
   else if (desc.includes("綠眼")) eyes = "green";
   else if (desc.includes("黑眼")) eyes = "black";
   else if (desc.includes("棕眼")) eyes = "hazel";
+  else if (desc.includes("灰眼")) eyes = "gray";
+  else if (desc.includes("琥珀") || desc.includes("金眼")) eyes = "amber";
   
   // 表情
   let mouth = "neutral";
@@ -92,11 +119,23 @@ function parseDescription(description: string): AvatarConfig {
   else if (desc.includes("皺眉") || desc.includes("不開心")) mouth = "frown";
   else if (desc.includes("張嘴") || desc.includes("驚訝")) mouth = "open";
   
-  // 服裝
-  let clothes = "casual";
-  if (desc.includes("西裝") || desc.includes("正式")) clothes = "formal";
-  else if (desc.includes("運動") || desc.includes("球衣")) clothes = "sporty";
-  else if (desc.includes("休閒")) clothes = "casual2";
+  // 服裝顏色 - 詳細匹配
+  let clothes = "blue"; // 預設藍色
+  if (desc.includes("紅") || desc.includes("紅色")) clothes = "red";
+  else if (desc.includes("藍") || desc.includes("藍色")) clothes = "blue";
+  else if (desc.includes("綠") || desc.includes("綠色")) clothes = "green";
+  else if (desc.includes("黃") || desc.includes("黃色")) clothes = "yellow";
+  else if (desc.includes("紫") || desc.includes("紫色")) clothes = "purple";
+  else if (desc.includes("橙") || desc.includes("橘") || desc.includes("橙色")) clothes = "orange";
+  else if (desc.includes("粉") || desc.includes("粉色")) clothes = "pink";
+  else if (desc.includes("黑") || desc.includes("黑色")) clothes = "black";
+  else if (desc.includes("白") || desc.includes("白色")) clothes = "white";
+  else if (desc.includes("灰") || desc.includes("灰色")) clothes = "gray";
+  else if (desc.includes("海軍") || desc.includes("深藍")) clothes = "navy";
+  else if (desc.includes("栗") || desc.includes("深紅")) clothes = "maroon";
+  else if (desc.includes("青綠") || desc.includes("藍綠")) clothes = "teal";
+  else if (desc.includes("珊瑚")) clothes = "coral";
+  else if (desc.includes("薰衣草") || desc.includes("淡紫")) clothes = "lavender";
   
   // 配件
   let accessories = "none";
@@ -145,7 +184,8 @@ function renderPixelAvatar(config: AvatarConfig, size: number = 64) {
   }
   
   // 繪製身體/衣服
-  ctx.fillStyle = avatarElements.clothes[config.clothes as keyof typeof avatarElements.clothes];
+  const clothesColor = avatarElements.clothes[config.clothes as keyof typeof avatarElements.clothes];
+  ctx.fillStyle = clothesColor;
   ctx.fillRect(pixelSize * 2, pixelSize * 6, pixelSize * 4, pixelSize * 2);
   
   // 繪製配件

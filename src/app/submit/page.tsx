@@ -105,8 +105,14 @@ export default function SubmitPage() {
                 placeholder="請描述對象的外貌..."
               />
               <p className="magazine-caption mt-2">
-                例如：黑髮、藍眼、戴眼鏡的男生
+                例如：黑髮、藍眼、戴眼鏡、穿紅色衣服的男生
               </p>
+              <div className="mt-3 text-xs text-gray-500">
+                <p className="mb-1"><strong>膚色：</strong>白、淺、黃、小麥、古銅、橄欖、棕、咖啡、黑、深色</p>
+                <p className="mb-1"><strong>頭髮：</strong>黑、棕、金、紅、白、銀、藍、粉、紫、綠、灰</p>
+                <p className="mb-1"><strong>眼睛：</strong>黑眼、棕眼、藍眼、綠眼、灰眼、琥珀、金眼</p>
+                <p><strong>衣服：</strong>紅、藍、綠、黃、紫、橙、粉、黑、白、灰、海軍、栗、青綠、珊瑚、薰衣草</p>
+              </div>
             </div>
 
             {/* Content 欄位 */}
