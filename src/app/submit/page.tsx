@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import AvatarBuilder from '@/components/AvatarBuilder';
+import AvatarGenerator from '@/components/AvatarGenerator';
 
 interface StoryForm {
   persona: string;
@@ -84,6 +85,17 @@ export default function SubmitPage() {
                 onDescriptionChange={handlePersonaChange}
                 initialDescription={formData.persona}
               />
+              
+              {/* AI 生成臨摹圖 */}
+              <div className="magazine-card p-6 mt-6">
+                <h4 className="magazine-heading mb-4">AI 角色臨摹圖</h4>
+                <AvatarGenerator 
+                  description={formData.persona}
+                  onImageGenerated={(imageUrl) => {
+                    console.log('Generated image:', imageUrl);
+                  }}
+                />
+              </div>
             </div>
 
             {/* Content 欄位 */}
