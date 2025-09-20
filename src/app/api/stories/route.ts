@@ -3,9 +3,13 @@ import path from "path";
 import fs from "fs/promises";
 import { strictRateLimit } from "@/lib/rateLimit";
 
-// 檔案路徑
-const PUBLIC_PATH = path.join(process.cwd(), "data", "stories.json");
-const PRIVATE_PATH = path.join(process.cwd(), "data", "story_private.json");
+// 檔案路徑 - 在 Vercel 環境中使用 /tmp 目錄
+const PUBLIC_PATH = process.env.VERCEL 
+  ? path.join("/tmp", "stories.json")
+  : path.join(process.cwd(), "data", "stories.json");
+const PRIVATE_PATH = process.env.VERCEL
+  ? path.join("/tmp", "story_private.json")
+  : path.join(process.cwd(), "data", "story_private.json");
 
 // 讀寫工具
 async function readJson<T>(p: string, fallback: T): Promise<T> {
