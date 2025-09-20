@@ -18,14 +18,15 @@ export async function POST(request: NextRequest) {
     }
 
     // 構建提示詞
-    const prompt = `Create a simple pixel art style avatar based on this description: ${description}. 
+    const prompt = `Create a single character pixel art style avatar based on this description: ${description}. 
     The image should be:
     - 8-bit pixel art style
     - Simple and clean design
-    - Front-facing portrait
-    - 256x256 pixels
+    - Front-facing portrait of ONE character only
+    - 1024x1024 pixels
     - Suitable for a story character avatar
-    - No text or words in the image`;
+    - No text or words in the image
+    - Only show one person, not multiple characters`;
 
     const response = await openai.images.generate({
       model: "dall-e-3",
