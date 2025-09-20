@@ -195,14 +195,19 @@ function renderPixelAvatar(config: AvatarConfig, size: number = 64) {
 
 export default function PixelAvatar({ description, size = 64 }: PixelAvatarProps) {
   const [avatarUrl, setAvatarUrl] = useState<string>("");
-  
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    if (description.trim()) {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient && description.trim()) {
       const config = parseDescription(description);
       const url = renderPixelAvatar(config, size);
       setAvatarUrl(url);
     }
-  }, [description, size]);
+  }, [description, size, isClient]);
   
   if (!avatarUrl) {
     return (
