@@ -37,6 +37,13 @@ export default function SubmitPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // 檢查所有必填欄位
+    if (!formData.persona.trim() || !formData.content.trim() || !formData.authorName.trim() || !formData.authorContact.trim()) {
+      alert("請填寫所有必填欄位");
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -48,15 +55,20 @@ export default function SubmitPage() {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         alert("已送出！等待審核。通過後會公開在「故事」頁面。");
         window.location.href = "/stories"; // 送出後直接看列表
       } else {
-        alert("提交失敗，請檢查欄位內容");
+        // 顯示具體的錯誤訊息
+        const errorMessage = data.error || "提交失敗，請檢查欄位內容";
+        alert(`提交失敗：${errorMessage}`);
+        console.error('提交失敗詳細資訊:', data);
       }
     } catch (error) {
       console.error('提交失敗:', error);
-      alert("提交失敗，請檢查欄位內容");
+      alert("提交失敗，請檢查網路連線");
     } finally {
       setIsSubmitting(false);
     }
