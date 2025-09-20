@@ -1,29 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import fs from "fs/promises";
 import { strictRateLimit } from "@/lib/rateLimit";
-
-// 檔案路徑 - 在 Vercel 環境中使用 /tmp 目錄
-const PUBLIC_PATH = process.env.VERCEL 
-  ? path.join("/tmp", "stories.json")
-  : path.join(process.cwd(), "data", "stories.json");
-const PRIVATE_PATH = process.env.VERCEL
-  ? path.join("/tmp", "story_private.json")
-  : path.join(process.cwd(), "data", "story_private.json");
-
-// 讀寫工具
-async function readJson<T>(p: string, fallback: T): Promise<T> {
-  try {
-    const buf = await fs.readFile(p, "utf8");
-    return JSON.parse(buf) as T;
-  } catch {
-    return fallback;
-  }
-}
-async function writeJson<T>(p: string, data: T) {
-  await fs.mkdir(path.dirname(p), { recursive: true });
-  await fs.writeFile(p, JSON.stringify(data, null, 2), "utf8");
-}
+import { 
+  getAllStories, 
+  saveStory, 
+  savePrivateInfo, 
+  PublicStory, 
+  PrivateInfo 
+} from "@/lib/kv";
 
 // 簡單去識別：遮蔽 email / 手機
 function sanitizeText(t: string) {
@@ -40,22 +23,10 @@ function sanitizeText(t: string) {
   return t.trim();
 }
 
-type PublicStory = {
-  id: string;
-  persona: string;
-  content: string;
-  createdAt: string;
-  status: "published" | "pending" | "rejected" | "withdrawn";
-};
-
-type PrivateInfo = {
-  storyId: string;
-  authorName?: string;
-  authorContact?: string;
-};
+// 類型定義已移至 @/lib/kv
 
 export async function GET() {
-  const stories = await readJson<PublicStory[]>(PUBLIC_PATH, []);
+  const stories = await getAllStories();
   return NextResponse.json({ stories: stories.filter(s => s.status === "published") });
 }
 
@@ -105,13 +76,8 @@ export async function POST(req: NextRequest) {
     authorContact,
   };
 
-  const stories = await readJson<PublicStory[]>(PUBLIC_PATH, []);
-  const privs = await readJson<PrivateInfo[]>(PRIVATE_PATH, []);
-  stories.unshift(newStory);
-  privs.unshift(priv);
-
-  await writeJson(PUBLIC_PATH, stories);
-  await writeJson(PRIVATE_PATH, privs);
+  await saveStory(newStory);
+  await savePrivateInfo(priv);
 
   return NextResponse.json({ ok: true, id });
 }

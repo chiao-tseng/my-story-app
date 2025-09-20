@@ -1,5 +1,10 @@
 [
   {
+    "storyId": "1cbb3919-90f6-4809-ba30-bfdc1aa16ab7",
+    "authorName": "測試作者",
+    "authorContact": "test@example.com"
+  },
+  {
     "storyId": "14105c0a-6648-47d3-9d15-ffa8df266991",
     "authorName": "",
     "authorContact": ""

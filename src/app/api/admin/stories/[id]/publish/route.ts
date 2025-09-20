@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import path from "path";
-import fs from "fs/promises";
-
-const PUBLIC_PATH = path.join(process.cwd(), "data", "stories.json");
+import { updateStoryStatus, getAllStories } from "@/lib/kv";
 
 export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const cookieStore = await cookies();
@@ -12,14 +9,17 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
 
   try {
     const { id } = await params;
-    const all = JSON.parse(await fs.readFile(PUBLIC_PATH, "utf8")) as Array<{id: string; status: string; reviewedAt?: string}>;
-    const i = all.findIndex(s => s.id === id);
-    if (i === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    all[i].status = "published";
-    all[i].reviewedAt = new Date().toISOString();
-    await fs.writeFile(PUBLIC_PATH, JSON.stringify(all, null, 2), "utf8");
+    const stories = await getAllStories();
+    const story = stories.find(s => s.id === id);
+    
+    if (!story) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+    
+    await updateStoryStatus(id, "published");
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error('發布故事失敗:', error);
     return NextResponse.json({ error: "Write error" }, { status: 500 });
   }
 }
