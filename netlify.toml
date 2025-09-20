@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# 環境變數（在 Netlify 後台設定）
+# ADMIN_PASSWORD = "your_production_password"
+# NEXT_PUBLIC_BASE_URL = "https://your-app-name.netlify.app"

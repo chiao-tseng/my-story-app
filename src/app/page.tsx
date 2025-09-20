@@ -1,103 +1,97 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="mx-auto max-w-6xl px-8 py-20">
+      {/* 雜誌風格主標題區 */}
+      <div className="text-center mb-20">
+        <div className="magazine-caption mb-4">VOL. 01 / {new Date().getFullYear()}</div>
+        <h1 className="magazine-title mb-6">感情壞蛋記錄簿</h1>
+        <p className="magazine-subtitle max-w-2xl mx-auto leading-relaxed">
+          匿名分享、彼此保護
+        </p>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* 雜誌風格內容區 */}
+      <div className="grid lg:grid-cols-2 gap-16 mb-20">
+        {/* 左側：主要內容 */}
+        <div className="space-y-8">
+          <div>
+            <h2 className="magazine-heading mb-4">關於我們</h2>
+            <p className="magazine-body leading-relaxed">
+              我們提供一個匿名分享的場域，讓每個人能為自己的行為負責、留下被傷害與學到的教訓。
+              公開頁面只顯示匿名化內容；投稿者的姓名與聯絡方式僅供平台方保存與必要聯繫，不會公開。
+            </p>
+          </div>
+
+          <div className="magazine-card p-8">
+            <h3 className="magazine-heading mb-6">投稿規範</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="magazine-body">
+                  請勿填寫真實姓名、學校、公司、社群帳號等可識別資訊。
+                </p>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="magazine-body">
+                  不得張貼未經證實之犯罪指控或人身攻擊；內容由投稿者自負法律責任。
+                </p>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="magazine-body">
+                  平台保留下架或調整內容之權利，並提供檢舉與覆核機制。
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* 右側：行動呼籲 */}
+        <div className="flex flex-col justify-center space-y-8">
+          <div className="text-center">
+            <h3 className="magazine-heading mb-4">開始你的故事</h3>
+            <p className="magazine-body text-gray-600 mb-8">
+              分享你的經歷，幫助他人避免相同的傷害
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <Link
+              href="/submit"
+              className="magazine-button-accent block text-center py-4 text-lg"
+            >
+              我要投稿
+            </Link>
+            <Link
+              href="/stories"
+              className="magazine-button block text-center py-4 text-lg"
+            >
+              閱讀故事
+            </Link>
+          </div>
+
+          {/* 裝飾性元素 */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
+              <span>匿名分享</span>
+              <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+              <span>彼此保護</span>
+              <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+              <span>共同成長</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 底部裝飾線 */}
+      <div className="border-t border-black pt-8">
+        <div className="text-center">
+          <p className="magazine-caption">STORY COLLECTION</p>
+        </div>
+      </div>
+    </main>
   );
 }

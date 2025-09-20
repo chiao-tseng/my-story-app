@@ -1,0 +1,18 @@
+[
+  {
+    "id": "14105c0a-6648-47d3-9d15-ffa8df266991",
+    "persona": "測試",
+    "content": "測試",
+    "createdAt": "2025-09-20T03:59:41.342Z",
+    "status": "rejected",
+    "reviewedAt": "2025-09-20T04:05:40.094Z"
+  },
+  {
+    "id": "5ef546ad-e72f-4e7e-9dac-213248d39fb7",
+    "persona": "我是測試內容",
+    "content": "高中長跑到32歲，15年的愛情故事。",
+    "createdAt": "2025-09-19T16:43:37.812Z",
+    "status": "withdrawn",
+    "reviewedAt": "2025-09-20T04:22:18.615Z"
+  }
+]
