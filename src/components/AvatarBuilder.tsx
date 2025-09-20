@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import PixelAvatar from "./PixelAvatar";
+// import PixelAvatar from "./PixelAvatar";
 
 interface AvatarBuilderProps {
   onDescriptionChange: (description: string) => void;
@@ -153,13 +153,15 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
 
   return (
     <div className="space-y-6">
-      {/* 角色預覽 */}
-      <div className="text-center">
-        <PixelAvatar description={generateDescription(selections)} size={120} />
-        <p className="magazine-body mt-3 text-gray-600">
-          {generateDescription(selections)}
-        </p>
-      </div>
+              {/* 角色預覽 */}
+              <div className="text-center">
+                <div className="bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs mx-auto" style={{width: 120, height: 120}}>
+                  預覽功能暫時停用
+                </div>
+                <p className="magazine-body mt-3 text-gray-600">
+                  {generateDescription(selections)}
+                </p>
+              </div>
 
       {/* 簡潔的選擇器 */}
       <div className="grid grid-cols-2 gap-3">
