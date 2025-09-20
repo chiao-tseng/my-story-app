@@ -10,58 +10,58 @@ interface AvatarBuilderProps {
 // 選項配置
 const avatarOptions = {
   skin: [
-    { value: "light", label: "淺色皮膚", keywords: ["白", "淺"] },
-    { value: "pale", label: "蒼白皮膚", keywords: ["蒼白"] },
-    { value: "medium", label: "中等皮膚", keywords: ["黃", "中等"] },
-    { value: "tan", label: "小麥色皮膚", keywords: ["小麥", "古銅"] },
-    { value: "olive", label: "橄欖色皮膚", keywords: ["橄欖"] },
-    { value: "brown", label: "棕色皮膚", keywords: ["棕", "咖啡"] },
-    { value: "dark", label: "深色皮膚", keywords: ["黑", "深色"] },
-    { value: "ebony", label: "深棕色皮膚", keywords: ["深棕"] }
+    { value: "light", label: "淺色", keywords: ["白", "淺"] },
+    { value: "pale", label: "蒼白", keywords: ["蒼白"] },
+    { value: "medium", label: "中等", keywords: ["黃", "中等"] },
+    { value: "tan", label: "小麥色", keywords: ["小麥", "古銅"] },
+    { value: "olive", label: "橄欖色", keywords: ["橄欖"] },
+    { value: "brown", label: "棕色", keywords: ["棕", "咖啡"] },
+    { value: "dark", label: "深色", keywords: ["黑", "深色"] },
+    { value: "ebony", label: "深棕色", keywords: ["深棕"] }
   ],
   hair: [
-    { value: "black", label: "黑髮", keywords: ["黑"] },
-    { value: "brown", label: "棕髮", keywords: ["棕", "咖啡"] },
-    { value: "blonde", label: "金髮", keywords: ["金", "黃"] },
-    { value: "red", label: "紅髮", keywords: ["紅"] },
-    { value: "white", label: "白髮", keywords: ["白", "銀"] },
-    { value: "blue", label: "藍髮", keywords: ["藍"] },
-    { value: "pink", label: "粉髮", keywords: ["粉"] },
-    { value: "purple", label: "紫髮", keywords: ["紫"] },
-    { value: "green", label: "綠髮", keywords: ["綠"] },
-    { value: "gray", label: "灰髮", keywords: ["灰"] }
+    { value: "black", label: "黑色", keywords: ["黑"] },
+    { value: "brown", label: "棕色", keywords: ["棕", "咖啡"] },
+    { value: "blonde", label: "金色", keywords: ["金", "黃"] },
+    { value: "red", label: "紅色", keywords: ["紅"] },
+    { value: "white", label: "白色", keywords: ["白", "銀"] },
+    { value: "blue", label: "藍色", keywords: ["藍"] },
+    { value: "pink", label: "粉色", keywords: ["粉"] },
+    { value: "purple", label: "紫色", keywords: ["紫"] },
+    { value: "green", label: "綠色", keywords: ["綠"] },
+    { value: "gray", label: "灰色", keywords: ["灰"] }
   ],
   eyes: [
-    { value: "brown", label: "棕眼", keywords: ["棕眼"] },
-    { value: "blue", label: "藍眼", keywords: ["藍眼"] },
-    { value: "green", label: "綠眼", keywords: ["綠眼"] },
-    { value: "black", label: "黑眼", keywords: ["黑眼"] },
-    { value: "hazel", label: "淡棕眼", keywords: ["淡棕眼"] },
-    { value: "gray", label: "灰眼", keywords: ["灰眼"] },
-    { value: "amber", label: "琥珀眼", keywords: ["琥珀", "金眼"] }
+    { value: "brown", label: "棕色", keywords: ["棕眼"] },
+    { value: "blue", label: "藍色", keywords: ["藍眼"] },
+    { value: "green", label: "綠色", keywords: ["綠眼"] },
+    { value: "black", label: "黑色", keywords: ["黑眼"] },
+    { value: "hazel", label: "淡棕色", keywords: ["淡棕眼"] },
+    { value: "gray", label: "灰色", keywords: ["灰眼"] },
+    { value: "amber", label: "琥珀色", keywords: ["琥珀", "金眼"] }
   ],
   clothes: [
-    { value: "red", label: "紅色衣服", keywords: ["紅", "紅色"] },
-    { value: "blue", label: "藍色衣服", keywords: ["藍", "藍色"] },
-    { value: "green", label: "綠色衣服", keywords: ["綠", "綠色"] },
-    { value: "yellow", label: "黃色衣服", keywords: ["黃", "黃色"] },
-    { value: "purple", label: "紫色衣服", keywords: ["紫", "紫色"] },
-    { value: "orange", label: "橙色衣服", keywords: ["橙", "橘", "橙色"] },
-    { value: "pink", label: "粉色衣服", keywords: ["粉", "粉色"] },
-    { value: "black", label: "黑色衣服", keywords: ["黑", "黑色"] },
-    { value: "white", label: "白色衣服", keywords: ["白", "白色"] },
-    { value: "gray", label: "灰色衣服", keywords: ["灰", "灰色"] },
-    { value: "navy", label: "海軍藍衣服", keywords: ["海軍", "深藍"] },
-    { value: "maroon", label: "栗色衣服", keywords: ["栗", "深紅"] },
-    { value: "teal", label: "青綠色衣服", keywords: ["青綠", "藍綠"] },
-    { value: "coral", label: "珊瑚色衣服", keywords: ["珊瑚"] },
-    { value: "lavender", label: "薰衣草色衣服", keywords: ["薰衣草", "淡紫"] }
+    { value: "red", label: "紅色", keywords: ["紅", "紅色"] },
+    { value: "blue", label: "藍色", keywords: ["藍", "藍色"] },
+    { value: "green", label: "綠色", keywords: ["綠", "綠色"] },
+    { value: "yellow", label: "黃色", keywords: ["黃", "黃色"] },
+    { value: "purple", label: "紫色", keywords: ["紫", "紫色"] },
+    { value: "orange", label: "橙色", keywords: ["橙", "橘", "橙色"] },
+    { value: "pink", label: "粉色", keywords: ["粉", "粉色"] },
+    { value: "black", label: "黑色", keywords: ["黑", "黑色"] },
+    { value: "white", label: "白色", keywords: ["白", "白色"] },
+    { value: "gray", label: "灰色", keywords: ["灰", "灰色"] },
+    { value: "navy", label: "海軍藍", keywords: ["海軍", "深藍"] },
+    { value: "maroon", label: "栗色", keywords: ["栗", "深紅"] },
+    { value: "teal", label: "青綠色", keywords: ["青綠", "藍綠"] },
+    { value: "coral", label: "珊瑚色", keywords: ["珊瑚"] },
+    { value: "lavender", label: "薰衣草色", keywords: ["薰衣草", "淡紫"] }
   ],
   accessories: [
-    { value: "none", label: "無配件", keywords: [] },
-    { value: "glasses", label: "戴眼鏡", keywords: ["眼鏡"] },
-    { value: "hat", label: "戴帽子", keywords: ["帽子"] },
-    { value: "earrings", label: "戴耳環", keywords: ["耳環"] }
+    { value: "none", label: "無", keywords: [] },
+    { value: "glasses", label: "眼鏡", keywords: ["眼鏡"] },
+    { value: "hat", label: "帽子", keywords: ["帽子"] },
+    { value: "earrings", label: "耳環", keywords: ["耳環"] }
   ]
 };
 
@@ -130,24 +130,24 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
     
     // 膚色
     const skinOption = avatarOptions.skin.find(opt => opt.value === selections.skin);
-    if (skinOption) parts.push(skinOption.label);
+    if (skinOption) parts.push(`${skinOption.label}皮膚`);
     
     // 髮色
     const hairOption = avatarOptions.hair.find(opt => opt.value === selections.hair);
-    if (hairOption) parts.push(hairOption.label);
+    if (hairOption) parts.push(`${hairOption.label}髮`);
     
     // 眼睛
     const eyesOption = avatarOptions.eyes.find(opt => opt.value === selections.eyes);
-    if (eyesOption) parts.push(eyesOption.label);
+    if (eyesOption) parts.push(`${eyesOption.label}眼`);
     
     // 衣服
     const clothesOption = avatarOptions.clothes.find(opt => opt.value === selections.clothes);
-    if (clothesOption) parts.push(clothesOption.label);
+    if (clothesOption) parts.push(`穿${clothesOption.label}衣服`);
     
     // 配件
     if (selections.accessories !== "none") {
       const accessoriesOption = avatarOptions.accessories.find(opt => opt.value === selections.accessories);
-      if (accessoriesOption) parts.push(accessoriesOption.label);
+      if (accessoriesOption) parts.push(`戴${accessoriesOption.label}`);
     }
     
     return parts.join("、");
@@ -169,24 +169,21 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
   return (
     <div className="space-y-6">
       {/* 角色預覽 */}
-      <div>
-        <h3 className="magazine-heading mb-4">角色預覽</h3>
-        <div className="text-center mb-6">
-          <PixelAvatar description={generateDescription(selections)} size={120} />
-          <p className="magazine-body mt-4 text-gray-600">
-            {generateDescription(selections)}
-          </p>
-        </div>
+      <div className="text-center">
+        <PixelAvatar description={generateDescription(selections)} size={120} />
+        <p className="magazine-body mt-3 text-gray-600">
+          {generateDescription(selections)}
+        </p>
       </div>
 
-      {/* 選擇器 */}
-      <div className="space-y-4">
+      {/* 簡潔的選擇器 */}
+      <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="magazine-body font-semibold mb-2 block">1. 膚色</label>
+          <label className="magazine-caption mb-1 block">膚色</label>
           <select
             value={selections.skin}
             onChange={(e) => handleSelectionChange("skin", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
           >
             {avatarOptions.skin.map(option => (
               <option key={option.value} value={option.value}>
@@ -197,11 +194,11 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div>
-          <label className="magazine-body font-semibold mb-2 block">2. 髮色</label>
+          <label className="magazine-caption mb-1 block">髮色</label>
           <select
             value={selections.hair}
             onChange={(e) => handleSelectionChange("hair", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
           >
             {avatarOptions.hair.map(option => (
               <option key={option.value} value={option.value}>
@@ -212,11 +209,11 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div>
-          <label className="magazine-body font-semibold mb-2 block">3. 眼睛</label>
+          <label className="magazine-caption mb-1 block">眼睛</label>
           <select
             value={selections.eyes}
             onChange={(e) => handleSelectionChange("eyes", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
           >
             {avatarOptions.eyes.map(option => (
               <option key={option.value} value={option.value}>
@@ -227,11 +224,11 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div>
-          <label className="magazine-body font-semibold mb-2 block">4. 服飾</label>
+          <label className="magazine-caption mb-1 block">服飾</label>
           <select
             value={selections.clothes}
             onChange={(e) => handleSelectionChange("clothes", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
           >
             {avatarOptions.clothes.map(option => (
               <option key={option.value} value={option.value}>
@@ -241,12 +238,12 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
           </select>
         </div>
 
-        <div>
-          <label className="magazine-body font-semibold mb-2 block">5. 配件</label>
+        <div className="col-span-2">
+          <label className="magazine-caption mb-1 block">配件</label>
           <select
             value={selections.accessories}
             onChange={(e) => handleSelectionChange("accessories", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
           >
             {avatarOptions.accessories.map(option => (
               <option key={option.value} value={option.value}>
