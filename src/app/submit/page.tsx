@@ -81,9 +81,14 @@ export default function SubmitPage() {
             {/* 形象描述區塊 */}
             <div>
               <h3 className="magazine-heading mb-4">形象描述 *</h3>
-              <AvatarBuilder 
-                onDescriptionChange={handlePersonaChange}
-                initialDescription={formData.persona}
+              <textarea
+                name="persona"
+                value={formData.persona}
+                onChange={handleInputChange}
+                required
+                rows={4}
+                className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body resize-none"
+                placeholder="請描述角色的外貌特徵，例如：膚色、髮色、眼睛顏色、服裝、配件等..."
               />
               
               {/* AI 生成臨摹圖 */}
