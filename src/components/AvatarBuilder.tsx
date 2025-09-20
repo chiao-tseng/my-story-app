@@ -177,13 +177,14 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
       </div>
 
       {/* 簡潔的選擇器 */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="magazine-caption mb-1 block">膚色</label>
+          <label className="magazine-caption mb-1 block text-xs">膚色</label>
           <select
             value={selections.skin}
             onChange={(e) => handleSelectionChange("skin", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
+            className="w-full px-2 py-1 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-xs"
+            size={2}
           >
             {avatarOptions.skin.map(option => (
               <option key={option.value} value={option.value}>
@@ -194,11 +195,12 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div>
-          <label className="magazine-caption mb-1 block">髮色</label>
+          <label className="magazine-caption mb-1 block text-xs">髮色</label>
           <select
             value={selections.hair}
             onChange={(e) => handleSelectionChange("hair", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
+            className="w-full px-2 py-1 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-xs"
+            size={2}
           >
             {avatarOptions.hair.map(option => (
               <option key={option.value} value={option.value}>
@@ -209,11 +211,12 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div>
-          <label className="magazine-caption mb-1 block">眼睛</label>
+          <label className="magazine-caption mb-1 block text-xs">眼睛</label>
           <select
             value={selections.eyes}
             onChange={(e) => handleSelectionChange("eyes", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
+            className="w-full px-2 py-1 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-xs"
+            size={2}
           >
             {avatarOptions.eyes.map(option => (
               <option key={option.value} value={option.value}>
@@ -224,11 +227,12 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div>
-          <label className="magazine-caption mb-1 block">服飾</label>
+          <label className="magazine-caption mb-1 block text-xs">服飾</label>
           <select
             value={selections.clothes}
             onChange={(e) => handleSelectionChange("clothes", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
+            className="w-full px-2 py-1 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-xs"
+            size={2}
           >
             {avatarOptions.clothes.map(option => (
               <option key={option.value} value={option.value}>
@@ -239,11 +243,12 @@ export default function AvatarBuilder({ onDescriptionChange, initialDescription 
         </div>
 
         <div className="col-span-2">
-          <label className="magazine-caption mb-1 block">配件</label>
+          <label className="magazine-caption mb-1 block text-xs">配件</label>
           <select
             value={selections.accessories}
             onChange={(e) => handleSelectionChange("accessories", e.target.value)}
-            className="w-full px-3 py-2 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-sm"
+            className="w-full px-2 py-1 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body text-xs"
+            size={1}
           >
             {avatarOptions.accessories.map(option => (
               <option key={option.value} value={option.value}>

@@ -201,6 +201,10 @@ function renderPixelAvatar(config: AvatarConfig, size: number = 64) {
   } else if (config.accessories === "hat") {
     ctx.fillStyle = "#8B4513";
     ctx.fillRect(pixelSize * 0.5, pixelSize * 0.5, pixelSize * 7, pixelSize * 1.5);
+  } else if (config.accessories === "earrings") {
+    ctx.fillStyle = "#FFD700";
+    ctx.fillRect(pixelSize * 1.5, pixelSize * 3.5, pixelSize * 0.3, pixelSize * 0.3);
+    ctx.fillRect(pixelSize * 6.2, pixelSize * 3.5, pixelSize * 0.3, pixelSize * 0.3);
   }
   
   return canvas.toDataURL();
