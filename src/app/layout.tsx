@@ -37,8 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <main>{children}</main>
 
-        {/* PWA 安裝按鈕 */}
-        <PWAInstallButton />
+        {/* PWA 安裝按鈕 - 暫時禁用 */}
+        {/* <PWAInstallButton /> */}
 
         {/* 雜誌風格頁尾 */}
         <footer className="mt-20 border-t border-black bg-black text-white">
