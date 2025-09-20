@@ -47,16 +47,22 @@ export default function SubmitPage() {
     setIsSubmitting(true);
 
     try {
+      console.log('Sending request with data:', formData);
+      
       const response = await fetch('/api/stories', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+      }).catch(fetchError => {
+        console.error('Fetch error:', fetchError);
+        throw fetchError;
       });
 
       console.log('Response status:', response.status);
       console.log('Response ok:', response.ok);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
 
       if (response.ok) {
         try {
