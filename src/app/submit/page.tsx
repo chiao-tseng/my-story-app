@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import PixelAvatar from '@/components/PixelAvatar';
+import AvatarBuilder from '@/components/AvatarBuilder';
 
 interface StoryForm {
   persona: string;
@@ -18,12 +19,20 @@ export default function SubmitPage() {
     authorContact: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [useBuilder, setUseBuilder] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handlePersonaChange = (description: string) => {
+    setFormData(prev => ({
+      ...prev,
+      persona: description
     }));
   };
 
@@ -70,49 +79,102 @@ export default function SubmitPage() {
         {/* 左側：表單 */}
         <div className="space-y-8">
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* 角色預覽 */}
+            {/* 形象描述區塊 */}
             <div>
-              <h3 className="magazine-heading mb-4">角色預覽</h3>
-              {formData.persona ? (
-                <div className="text-center mb-6">
-                  <PixelAvatar description={formData.persona} size={120} />
-                  <p className="magazine-body mt-4 text-gray-600">
-                    {formData.persona}
-                  </p>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="magazine-heading">形象描述 *</h3>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setUseBuilder(false)}
+                    className={`px-3 py-1 text-sm border-2 transition-colors ${
+                      !useBuilder 
+                        ? 'border-red-600 bg-red-600 text-white' 
+                        : 'border-gray-300 text-gray-600 hover:border-red-600'
+                    }`}
+                  >
+                    文字輸入
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUseBuilder(true)}
+                    className={`px-3 py-1 text-sm border-2 transition-colors ${
+                      useBuilder 
+                        ? 'border-red-600 bg-red-600 text-white' 
+                        : 'border-gray-300 text-gray-600 hover:border-red-600'
+                    }`}
+                  >
+                    選單選擇
+                  </button>
                 </div>
+              </div>
+
+              {useBuilder ? (
+                <AvatarBuilder 
+                  onDescriptionChange={handlePersonaChange}
+                  initialDescription={formData.persona}
+                />
               ) : (
-                <div className="magazine-card p-8 text-center mb-6">
-                  <p className="magazine-body text-gray-500">
-                    輸入形象描述後，這裡會顯示角色預覽
-                  </p>
+                <div className="space-y-4">
+                  {/* 角色預覽 */}
+                  <div>
+                    <h4 className="magazine-body font-semibold mb-3">角色預覽</h4>
+                    {formData.persona ? (
+                      <div className="text-center mb-6">
+                        <PixelAvatar description={formData.persona} size={120} />
+                        <p className="magazine-body mt-4 text-gray-600">
+                          {formData.persona}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="magazine-card p-8 text-center mb-6">
+                        <p className="magazine-body text-gray-500">
+                          輸入形象描述後，這裡會顯示角色預覽
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 文字輸入 */}
+                  <div>
+                    <input
+                      type="text"
+                      id="persona"
+                      name="persona"
+                      value={formData.persona}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+                      placeholder="請描述對象的外貌..."
+                    />
+                    <p className="magazine-caption mt-2">
+                      建議順序：膚色 + 髮色 + 眼睛 + 服飾 + 配件
+                    </p>
+                    <div className="mt-3 text-xs text-gray-500 space-y-1">
+                      <p><strong>範例：</strong>小麥色皮膚、金髮、藍眼、穿紅色衣服、戴眼鏡的男生</p>
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div>
+                          <p className="font-semibold text-gray-700">1. 膚色</p>
+                          <p>白、淺、黃、小麥、古銅、橄欖、棕、咖啡、黑、深色</p>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-700">2. 髮色</p>
+                          <p>黑、棕、金、紅、白、銀、藍、粉、紫、綠、灰</p>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-700">3. 眼睛</p>
+                          <p>黑眼、棕眼、藍眼、綠眼、灰眼、琥珀、金眼</p>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-700">4. 服飾</p>
+                          <p>紅、藍、綠、黃、紫、橙、粉、黑、白、灰、海軍、栗、青綠、珊瑚、薰衣草</p>
+                        </div>
+                      </div>
+                      <p className="mt-2 text-gray-600"><strong>配件：</strong>眼鏡、帽子、耳環</p>
+                    </div>
+                  </div>
                 </div>
               )}
-            </div>
-
-            {/* Persona 欄位 */}
-            <div>
-              <label htmlFor="persona" className="magazine-heading mb-4 block">
-                形象描述 *
-              </label>
-              <input
-                type="text"
-                id="persona"
-                name="persona"
-                value={formData.persona}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
-                placeholder="請描述對象的外貌..."
-              />
-              <p className="magazine-caption mt-2">
-                例如：黑髮、藍眼、戴眼鏡、穿紅色衣服的男生
-              </p>
-              <div className="mt-3 text-xs text-gray-500">
-                <p className="mb-1"><strong>膚色：</strong>白、淺、黃、小麥、古銅、橄欖、棕、咖啡、黑、深色</p>
-                <p className="mb-1"><strong>頭髮：</strong>黑、棕、金、紅、白、銀、藍、粉、紫、綠、灰</p>
-                <p className="mb-1"><strong>眼睛：</strong>黑眼、棕眼、藍眼、綠眼、灰眼、琥珀、金眼</p>
-                <p><strong>衣服：</strong>紅、藍、綠、黃、紫、橙、粉、黑、白、灰、海軍、栗、青綠、珊瑚、薰衣草</p>
-              </div>
             </div>
 
             {/* Content 欄位 */}
