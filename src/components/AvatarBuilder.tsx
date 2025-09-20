@@ -7,17 +7,14 @@ interface AvatarBuilderProps {
   initialDescription?: string;
 }
 
-// 選項配置
+// 選項配置 - 只保留視覺差異明顯的選項
 const avatarOptions = {
   skin: [
     { value: "light", label: "淺色", keywords: ["白", "淺"] },
-    { value: "pale", label: "蒼白", keywords: ["蒼白"] },
     { value: "medium", label: "中等", keywords: ["黃", "中等"] },
     { value: "tan", label: "小麥色", keywords: ["小麥", "古銅"] },
-    { value: "olive", label: "橄欖色", keywords: ["橄欖"] },
     { value: "brown", label: "棕色", keywords: ["棕", "咖啡"] },
-    { value: "dark", label: "深色", keywords: ["黑", "深色"] },
-    { value: "ebony", label: "深棕色", keywords: ["深棕"] }
+    { value: "dark", label: "深色", keywords: ["黑", "深色"] }
   ],
   hair: [
     { value: "black", label: "黑色", keywords: ["黑"] },
@@ -26,19 +23,13 @@ const avatarOptions = {
     { value: "red", label: "紅色", keywords: ["紅"] },
     { value: "white", label: "白色", keywords: ["白", "銀"] },
     { value: "blue", label: "藍色", keywords: ["藍"] },
-    { value: "pink", label: "粉色", keywords: ["粉"] },
-    { value: "purple", label: "紫色", keywords: ["紫"] },
-    { value: "green", label: "綠色", keywords: ["綠"] },
-    { value: "gray", label: "灰色", keywords: ["灰"] }
+    { value: "pink", label: "粉色", keywords: ["粉"] }
   ],
   eyes: [
     { value: "brown", label: "棕色", keywords: ["棕眼"] },
     { value: "blue", label: "藍色", keywords: ["藍眼"] },
     { value: "green", label: "綠色", keywords: ["綠眼"] },
-    { value: "black", label: "黑色", keywords: ["黑眼"] },
-    { value: "hazel", label: "淡棕色", keywords: ["淡棕眼"] },
-    { value: "gray", label: "灰色", keywords: ["灰眼"] },
-    { value: "amber", label: "琥珀色", keywords: ["琥珀", "金眼"] }
+    { value: "black", label: "黑色", keywords: ["黑眼"] }
   ],
   clothes: [
     { value: "red", label: "紅色", keywords: ["紅", "紅色"] },
@@ -49,13 +40,7 @@ const avatarOptions = {
     { value: "orange", label: "橙色", keywords: ["橙", "橘", "橙色"] },
     { value: "pink", label: "粉色", keywords: ["粉", "粉色"] },
     { value: "black", label: "黑色", keywords: ["黑", "黑色"] },
-    { value: "white", label: "白色", keywords: ["白", "白色"] },
-    { value: "gray", label: "灰色", keywords: ["灰", "灰色"] },
-    { value: "navy", label: "海軍藍", keywords: ["海軍", "深藍"] },
-    { value: "maroon", label: "栗色", keywords: ["栗", "深紅"] },
-    { value: "teal", label: "青綠色", keywords: ["青綠", "藍綠"] },
-    { value: "coral", label: "珊瑚色", keywords: ["珊瑚"] },
-    { value: "lavender", label: "薰衣草色", keywords: ["薰衣草", "淡紫"] }
+    { value: "white", label: "白色", keywords: ["白", "白色"] }
   ],
   accessories: [
     { value: "none", label: "無", keywords: [] },

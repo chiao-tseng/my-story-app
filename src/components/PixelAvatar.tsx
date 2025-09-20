@@ -83,16 +83,14 @@ const avatarElements = {
 function parseDescription(description: string): AvatarConfig {
   const desc = description.toLowerCase();
   
-  // 皮膚顏色 - 更詳細的匹配
+  // 皮膚顏色 - 簡化匹配
   let skin = "light";
-  if (desc.includes("黑") || desc.includes("深色") || desc.includes("深棕")) skin = "ebony";
+  if (desc.includes("黑") || desc.includes("深色")) skin = "dark";
   else if (desc.includes("棕") || desc.includes("咖啡")) skin = "brown";
-  else if (desc.includes("橄欖")) skin = "olive";
   else if (desc.includes("小麥") || desc.includes("古銅")) skin = "tan";
-  else if (desc.includes("白") || desc.includes("淺") || desc.includes("蒼白")) skin = "pale";
   else if (desc.includes("黃") || desc.includes("中等")) skin = "medium";
   
-  // 頭髮顏色 - 更多選項
+  // 頭髮顏色 - 簡化選項
   let hair = "black";
   if (desc.includes("金") || desc.includes("黃")) hair = "blonde";
   else if (desc.includes("棕") || desc.includes("咖啡")) hair = "brown";
@@ -100,18 +98,12 @@ function parseDescription(description: string): AvatarConfig {
   else if (desc.includes("白") || desc.includes("銀")) hair = "white";
   else if (desc.includes("藍")) hair = "blue";
   else if (desc.includes("粉")) hair = "pink";
-  else if (desc.includes("紫")) hair = "purple";
-  else if (desc.includes("綠")) hair = "green";
-  else if (desc.includes("灰")) hair = "gray";
   
-  // 眼睛顏色 - 更多選項
+  // 眼睛顏色 - 簡化選項
   let eyes = "brown";
   if (desc.includes("藍眼")) eyes = "blue";
   else if (desc.includes("綠眼")) eyes = "green";
   else if (desc.includes("黑眼")) eyes = "black";
-  else if (desc.includes("棕眼")) eyes = "hazel";
-  else if (desc.includes("灰眼")) eyes = "gray";
-  else if (desc.includes("琥珀") || desc.includes("金眼")) eyes = "amber";
   
   // 表情
   let mouth = "neutral";
