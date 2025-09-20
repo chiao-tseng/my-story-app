@@ -70,6 +70,25 @@ export default function SubmitPage() {
         {/* 左側：表單 */}
         <div className="space-y-8">
           <form onSubmit={handleSubmit} className="space-y-8">
+            {/* 角色預覽 */}
+            <div>
+              <h3 className="magazine-heading mb-4">角色預覽</h3>
+              {formData.persona ? (
+                <div className="text-center mb-6">
+                  <PixelAvatar description={formData.persona} size={120} />
+                  <p className="magazine-body mt-4 text-gray-600">
+                    {formData.persona}
+                  </p>
+                </div>
+              ) : (
+                <div className="magazine-card p-8 text-center mb-6">
+                  <p className="magazine-body text-gray-500">
+                    輸入形象描述後，這裡會顯示角色預覽
+                  </p>
+                </div>
+              )}
+            </div>
+
             {/* Persona 欄位 */}
             <div>
               <label htmlFor="persona" className="magazine-heading mb-4 block">
@@ -157,27 +176,8 @@ export default function SubmitPage() {
           </form>
         </div>
 
-        {/* 右側：預覽區 */}
+        {/* 右側：投稿須知 */}
         <div className="space-y-8">
-          <div>
-            <h3 className="magazine-heading mb-6">角色預覽</h3>
-            {formData.persona ? (
-              <div className="text-center">
-                <PixelAvatar description={formData.persona} size={120} />
-                <p className="magazine-body mt-4 text-gray-600">
-                  {formData.persona}
-                </p>
-              </div>
-            ) : (
-              <div className="magazine-card p-8 text-center">
-                <p className="magazine-body text-gray-500">
-                  輸入形象描述後，這裡會顯示角色預覽
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* 投稿須知 */}
           <div className="magazine-card p-6">
             <h4 className="magazine-heading mb-4">投稿須知</h4>
             <ul className="space-y-3">
