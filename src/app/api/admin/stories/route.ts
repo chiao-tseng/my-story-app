@@ -7,12 +7,18 @@ export async function GET(req: Request) {
   if (cookieStore.get("isAdmin")?.value !== "1")
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const sp = new URL(req.url).searchParams;
-  const status = (sp.get("status") || "pending") as PublicStory["status"] | "all";
-  
-  const list = status === "all" 
-    ? await getAllStories()
-    : await getStoriesByStatus(status);
+  try {
+    const sp = new URL(req.url).searchParams;
+    const status = (sp.get("status") || "pending") as PublicStory["status"] | "all";
     
-  return NextResponse.json({ stories: list });
+    const list = status === "all" 
+      ? await getAllStories()
+      : await getStoriesByStatus(status);
+      
+    console.log(`Admin API: Fetched ${list.length} stories with status ${status}`);
+    return NextResponse.json({ stories: list });
+  } catch (error) {
+    console.error('Admin API Error:', error);
+    return NextResponse.json({ error: "Failed to fetch stories" }, { status: 500 });
+  }
 }

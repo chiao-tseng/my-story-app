@@ -15,7 +15,9 @@ if (!supabaseUrl || !supabaseKey) {
   }
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = supabaseUrl && supabaseKey 
+  ? createClient(supabaseUrl, supabaseKey)
+  : null;
 
 // 故事資料類型
 export type PublicStory = {
@@ -37,6 +39,11 @@ export type PrivateInfo = {
 
 // 讀取所有故事
 export async function getAllStories(): Promise<PublicStory[]> {
+  if (!supabase) {
+    console.error('Supabase client not initialized');
+    return [];
+  }
+  
   try {
     const { data, error } = await supabase
       .from('stories')
@@ -138,6 +145,11 @@ export async function updateStoryStatus(storyId: string, status: PublicStory['st
 
 // 根據狀態篩選故事
 export async function getStoriesByStatus(status: PublicStory['status']): Promise<PublicStory[]> {
+  if (!supabase) {
+    console.error('Supabase client not initialized');
+    return [];
+  }
+  
   try {
     const { data, error } = await supabase
       .from('stories')
