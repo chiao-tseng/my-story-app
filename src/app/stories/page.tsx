@@ -9,7 +9,7 @@ type Story = {
   title: string;
   persona: string;
   content: string;
-  createdAt: string;
+  created_at: string;
   status: "published" | "pending" | "rejected";
 };
 
@@ -55,7 +55,7 @@ export default function StoriesPage() {
             {/* 故事頭部 */}
             <div className="flex items-center justify-between mb-4">
               <div className="magazine-caption">
-                {new Date(s.createdAt).toLocaleDateString('zh-TW')}
+                {new Date(s.created_at).toLocaleDateString('zh-TW')}
               </div>
               <StatusBadge status={s.status} />
             </div>

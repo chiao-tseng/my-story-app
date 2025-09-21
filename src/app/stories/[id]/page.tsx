@@ -6,7 +6,7 @@ type Story = {
   title: string;
   persona: string;
   content: string;
-  createdAt: string;
+  created_at: string;
 };
 
 async function getStory(id: string): Promise<Story | null> {
@@ -31,7 +31,7 @@ export default async function StoryDetail({ params }: { params: Promise<{ id: st
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
       <div className="text-sm text-gray-500 mb-2">
-        {new Date(story.createdAt).toLocaleString()}
+        {new Date(story.created_at).toLocaleString('zh-TW')}
       </div>
       
       <div className="flex items-center gap-4 mb-6">
