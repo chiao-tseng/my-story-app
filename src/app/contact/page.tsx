@@ -42,9 +42,13 @@ function ContactForm() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    
+    const responseData = await res.json();
     setLoading(false);
+    
     if (!res.ok) {
-      alert("送出失敗，請檢查欄位");
+      console.error('聯繫請求提交失敗:', responseData);
+      alert(`送出失敗：${responseData.error || "請檢查欄位"}`);
       return;
     }
     alert("已送出聯繫需求。我們會盡快回覆你。");
