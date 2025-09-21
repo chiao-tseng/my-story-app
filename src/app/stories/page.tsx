@@ -98,6 +98,12 @@ export default function StoriesPage() {
                 className={`magazine-body text-gray-700 leading-relaxed whitespace-pre-wrap transition-all duration-300 ${
                   isExpanded(s.id) ? '' : 'line-clamp-3'
                 }`}
+                style={!isExpanded(s.id) ? {
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden'
+                } : {}}
               >
                 {s.content}
               </div>
