@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>測試表單提交</title>
+</head>
+<body>
+    <h1>測試表單提交</h1>
+    <form id="testForm">
+        <div>
+            <label>形象描述:</label><br>
+            <textarea name="persona" required>測試角色</textarea>
+        </div>
+        <div>
+            <label>故事內容:</label><br>
+            <textarea name="content" required>測試故事內容</textarea>
+        </div>
+        <div>
+            <label>作者姓名:</label><br>
+            <input type="text" name="authorName" required value="測試作者">
+        </div>
+        <div>
+            <label>聯絡方式:</label><br>
+            <input type="text" name="authorContact" required value="test@example.com">
+        </div>
+        <button type="submit">提交測試</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                persona: document.querySelector('textarea[name="persona"]').value,
+                content: document.querySelector('textarea[name="content"]').value,
+                authorName: document.querySelector('input[name="authorName"]').value,
+                authorContact: document.querySelector('input[name="authorContact"]').value
+            };
+            
+            console.log('Sending data:', formData);
+            
+            try {
+                const response = await fetch('/api/stories', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                
+                const data = await response.json();
+                console.log('Response data:', data);
+                
+                document.getElementById('result').innerHTML = 
+                    '<p style="color: green;">成功！回應: ' + JSON.stringify(data) + '</p>';
+                    
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 
+                    '<p style="color: red;">錯誤: ' + error.message + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>
