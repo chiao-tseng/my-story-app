@@ -7,12 +7,24 @@ type Story = {
   persona: string;
   content: string;
   created_at: string;
+  status: string;
+  reviewed_at?: string;
 };
 
 async function getStory(id: string): Promise<Story | null> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/stories/${id}`, { cache: "no-store" });
-  if (!res.ok) return null;
-  return res.json();
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/stories/${id}`, { cache: "no-store" });
+    if (!res.ok) {
+      console.error(`API request failed: ${res.status} ${res.statusText}`);
+      return null;
+    }
+    const data = await res.json();
+    console.log('Story data:', data);
+    return data;
+  } catch (error) {
+    console.error('Error fetching story:', error);
+    return null;
+  }
 }
 
 export default async function StoryDetail({ params }: { params: Promise<{ id: string }> }) {
