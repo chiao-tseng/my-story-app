@@ -61,5 +61,5 @@ export const defaultRateLimit = rateLimit({
 // 更嚴格的速率限制（用於投稿）- 暫時放寬用於測試
 export const strictRateLimit = rateLimit({
   windowMs: 60 * 1000, // 1 分鐘
-  maxRequests: 10, // 最多 10 次請求
+  maxRequests: 100, // 最多 100 次請求（暫時放寬）
 });
