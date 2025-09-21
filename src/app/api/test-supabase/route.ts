@@ -18,15 +18,16 @@ export async function GET() {
     }
 
     // 測試 Supabase 連接
-    const { data, error } = await supabase
+    const { data, error, count } = await supabase
       .from('stories')
-      .select('count(*)', { count: 'exact' });
+      .select('*', { count: 'exact' });
 
     return NextResponse.json({
       success: true,
       envCheck,
-      supabaseResult: { data, error },
-      totalCount: data?.[0]?.count || 0
+      supabaseResult: { data, error, count },
+      totalCount: count || 0,
+      sampleData: data?.slice(0, 2) || [] // 顯示前 2 筆資料作為樣本
     });
 
   } catch (error) {
