@@ -11,6 +11,7 @@ type Story = {
   content: string;
   created_at: string;
   status: "published" | "pending" | "rejected";
+  generated_image_url?: string;
 };
 
 export default function StoriesPage() {
@@ -77,7 +78,15 @@ export default function StoriesPage() {
 
             {/* 角色頭像 */}
             <div className="flex items-center gap-4 mb-4">
-              <PixelAvatar description={s.persona} size={64} />
+              {s.generated_image_url ? (
+                <img 
+                  src={s.generated_image_url} 
+                  alt="角色頭像" 
+                  className="w-16 h-16 rounded-lg border-2 border-gray-300 object-cover"
+                />
+              ) : (
+                <PixelAvatar description={s.persona} size={64} />
+              )}
               <div>
                 <h2 className="magazine-heading">{s.title || "匿名故事"}</h2>
               </div>

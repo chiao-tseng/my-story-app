@@ -1,11 +1,13 @@
 -- 創建故事表
 CREATE TABLE IF NOT EXISTS stories (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
   persona TEXT NOT NULL,
   content TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('published', 'pending', 'rejected', 'withdrawn')),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  reviewed_at TIMESTAMP WITH TIME ZONE
+  reviewed_at TIMESTAMP WITH TIME ZONE,
+  generated_image_url TEXT
 );
 
 -- 創建私人資訊表

@@ -10,6 +10,7 @@ interface StoryForm {
   content: string;
   authorName: string;
   authorContact: string;
+  generatedImageUrl?: string;
 }
 
 export default function SubmitPage() {
@@ -18,7 +19,8 @@ export default function SubmitPage() {
     persona: '',
     content: '',
     authorName: '',
-    authorContact: ''
+    authorContact: '',
+    generatedImageUrl: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -142,12 +144,16 @@ export default function SubmitPage() {
                      {/* AI 生成臨摹圖 */}
                      <div className="magazine-card p-6 mt-6">
                        <h4 className="magazine-heading mb-4">AI 角色臨摹圖</h4>
-                       <AvatarGenerator 
-                         description={formData.persona}
-                         onImageGenerated={(imageUrl) => {
-                           console.log('Generated image:', imageUrl);
-                         }}
-                       />
+                     <AvatarGenerator 
+                       description={formData.persona}
+                       onImageGenerated={(imageUrl) => {
+                         console.log('Generated image:', imageUrl);
+                         setFormData(prev => ({
+                           ...prev,
+                           generatedImageUrl: imageUrl
+                         }));
+                       }}
+                     />
                      </div>
             </div>
 

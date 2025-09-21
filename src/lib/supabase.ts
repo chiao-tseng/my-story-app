@@ -28,6 +28,7 @@ export type PublicStory = {
   created_at: string;
   status: "published" | "pending" | "rejected" | "withdrawn";
   reviewed_at?: string;
+  generated_image_url?: string;
 };
 
 export type PrivateInfo = {

@@ -46,12 +46,13 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const { title, persona, content, authorName, authorContact } = body as {
+  const { title, persona, content, authorName, authorContact, generatedImageUrl } = body as {
     title?: string;
     persona?: string;
     content?: string;
     authorName?: string;
     authorContact?: string;
+    generatedImageUrl?: string;
   };
 
   if (!title || !persona || !content || !authorName || !authorContact) {
@@ -71,6 +72,7 @@ export async function POST(req: NextRequest) {
     persona: safePersona,
     content: safeContent,
     status: "pending" as const,
+    generated_image_url: generatedImageUrl || null,
   };
   const priv = {
     story_id: id,
