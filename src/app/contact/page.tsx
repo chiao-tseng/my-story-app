@@ -9,7 +9,7 @@ function ContactForm() {
   const [loading, setLoading] = useState(false);
   
   // 如果有故事ID，嘗試獲取故事資訊來顯示
-  const [storyInfo, setStoryInfo] = useState<{id: string, persona: string} | null>(null);
+  const [storyInfo, setStoryInfo] = useState<{id: string, title: string} | null>(null);
   
   useEffect(() => {
     if (storyId) {
@@ -18,7 +18,7 @@ function ContactForm() {
         .then(res => res.json())
         .then(data => {
           if (data.id) {
-            setStoryInfo({ id: data.id, persona: data.persona });
+            setStoryInfo({ id: data.id, title: data.title || "匿名故事" });
           }
         })
         .catch(() => {
@@ -64,7 +64,7 @@ function ContactForm() {
         <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <h2 className="font-semibold text-blue-900 mb-1">關於這篇故事</h2>
           <p className="text-blue-800">
-            <strong>角色：</strong>{storyInfo.persona}
+            <strong>標題：</strong>{storyInfo.title}
           </p>
           <p className="text-sm text-blue-600 mt-1">
             你的聯繫需求將與這篇故事關聯
