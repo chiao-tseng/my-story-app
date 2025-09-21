@@ -1,33 +1,31 @@
 import { NextResponse } from "next/server";
-import path from "path";
-import fs from "fs/promises";
-
-const PUBLIC_PATH = path.join(process.cwd(), "data", "stories.json");
-
-type Story = {
-  id: string;
-  persona: string;
-  content: string;
-  createdAt: string;
-  status: "published" | "pending" | "rejected";
-};
-
-async function readStories(): Promise<Story[]> {
-  try {
-    const raw = await fs.readFile(PUBLIC_PATH, "utf8");
-    return JSON.parse(raw) as Story[];
-  } catch {
-    return [];
-  }
-}
+import { supabase } from "@/lib/supabase";
 
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
-  const all = await readStories();
-  const story = all.find((s) => s.id === id && s.status === "published");
-  if (!story) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(story);
+  try {
+    const { id } = await params;
+    
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not available" }, { status: 500 });
+    }
+
+    const { data, error } = await supabase
+      .from('stories')
+      .select('*')
+      .eq('id', id)
+      .eq('status', 'published')
+      .single();
+
+    if (error || !data) {
+      return NextResponse.json({ error: "Story not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Error fetching story:', error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }
