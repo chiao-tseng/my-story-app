@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import StatusBadge from "@/components/StatusBadge";
 
 type Story = { id:string; persona:string; content:string; created_at:string; status:"pending"|"published"|"rejected"|"withdrawn" };
+type ContactRequest = { id:string; story_id?:string; requester_contact:string; message?:string; created_at:string; status:"pending"|"processed" };
 
 export default function AdminPage() {
   const [pwd, setPwd] = useState("");
   const [logged, setLogged] = useState(false);
-  const [tab, setTab] = useState<"pending"|"published"|"rejected"|"withdrawn">("pending");
+  const [tab, setTab] = useState<"pending"|"published"|"rejected"|"withdrawn"|"contacts">("pending");
   const [stories, setStories] = useState<Story[]>([]);
+  const [contactRequests, setContactRequests] = useState<ContactRequest[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function login(e: React.FormEvent) {
@@ -28,19 +30,42 @@ export default function AdminPage() {
     setLogged(false); setStories([]);
   }
   async function load(s = tab) {
-    const r = await fetch(`/api/admin/stories?status=${s}`, { cache: "no-store" });
-    if (r.ok) {
-      const data = await r.json();
-      setStories(data.stories || []);
-      setLogged(true);
+    if (s === "contacts") {
+      // 載入聯繫請求
+      const r = await fetch(`/api/admin/contact-requests?status=all`, { cache: "no-store" });
+      if (r.ok) {
+        const data = await r.json();
+        setContactRequests(data.contactRequests || []);
+        setLogged(true);
+      } else {
+        setLogged(false);
+      }
     } else {
-      setLogged(false);
+      // 載入故事
+      const r = await fetch(`/api/admin/stories?status=${s}`, { cache: "no-store" });
+      if (r.ok) {
+        const data = await r.json();
+        setStories(data.stories || []);
+        setLogged(true);
+      } else {
+        setLogged(false);
+      }
     }
   }
   useEffect(() => { load(); }, [tab]);
 
   async function act(id: string, action: "publish" | "reject" | "withdraw" | "republish") {
     const r = await fetch(`/api/admin/stories/${id}/${action}`, { method: "POST" });
+    if (r.ok) load();
+    else alert("操作失敗");
+  }
+
+  async function updateContactStatus(id: string, status: "pending" | "processed") {
+    const r = await fetch(`/api/admin/contact-requests/${id}/update-status`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status })
+    });
     if (r.ok) load();
     else alert("操作失敗");
   }
@@ -63,12 +88,13 @@ export default function AdminPage() {
         <>
           <div className="flex items-center justify-between mb-4">
             <div className="flex gap-2">
-              {(["pending","published","rejected","withdrawn"] as const).map(s=>(
+              {(["pending","published","rejected","withdrawn","contacts"] as const).map(s=>(
                 <button key={s} onClick={()=>setTab(s)}
                         className={`px-3 py-1.5 rounded ${tab===s?"bg-black text-white":"border"}`}>
                   {s === "pending" ? "待審核" :
                    s === "published" ? "已發布" :
-                   s === "rejected" ? "已退稿" : "已撤稿"}
+                   s === "rejected" ? "已退稿" :
+                   s === "withdrawn" ? "已撤稿" : "聯繫請求"}
                 </button>
               ))}
             </div>
@@ -76,7 +102,62 @@ export default function AdminPage() {
           </div>
 
           <div className="space-y-4">
-            {stories.map(s=>(
+            {tab === "contacts" ? (
+              // 聯繫請求列表
+              contactRequests.map(cr=>(
+                <div key={cr.id} className="border rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-xs text-gray-500">
+                      {new Date(cr.created_at).toLocaleString()} · {cr.id}
+                    </div>
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      cr.status === "pending" ? "bg-yellow-100 text-yellow-800" : "bg-green-100 text-green-800"
+                    }`}>
+                      {cr.status === "pending" ? "待處理" : "已處理"}
+                    </span>
+                  </div>
+                  
+                  <div className="mb-3">
+                    <p className="font-semibold text-blue-600 mb-1">聯絡方式：</p>
+                    <p className="text-gray-800">{cr.requester_contact}</p>
+                  </div>
+                  
+                  {cr.story_id && (
+                    <div className="mb-3">
+                      <p className="font-semibold text-blue-600 mb-1">關聯故事：</p>
+                      <p className="text-gray-800 text-sm">{cr.story_id}</p>
+                    </div>
+                  )}
+                  
+                  {cr.message && (
+                    <div className="mb-3">
+                      <p className="font-semibold text-blue-600 mb-1">訊息內容：</p>
+                      <p className="text-gray-800 whitespace-pre-wrap">{cr.message}</p>
+                    </div>
+                  )}
+                  
+                  <div className="mt-3 flex gap-2">
+                    {cr.status === "pending" ? (
+                      <button 
+                        onClick={()=>updateContactStatus(cr.id, "processed")} 
+                        className="px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 text-sm"
+                      >
+                        標記為已處理
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={()=>updateContactStatus(cr.id, "pending")} 
+                        className="px-3 py-1.5 rounded bg-yellow-600 text-white hover:bg-yellow-700 text-sm"
+                      >
+                        標記為待處理
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              // 故事列表
+              stories.map(s=>(
               <div key={s.id} className="border rounded-xl p-4">
                 <div className="flex items-center justify-between mb-1">
                   <div className="text-xs text-gray-500">
@@ -117,8 +198,12 @@ export default function AdminPage() {
                   return null;
                 })()}
               </div>
-            ))}
-            {stories.length===0 && <div className="text-gray-500">沒有資料。</div>}
+              ))
+            )}
+            {tab === "contacts" ? 
+              (contactRequests.length===0 && <div className="text-gray-500">沒有聯繫請求。</div>) :
+              (stories.length===0 && <div className="text-gray-500">沒有資料。</div>)
+            }
           </div>
         </>
       )}
