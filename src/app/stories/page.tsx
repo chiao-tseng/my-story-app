@@ -62,7 +62,9 @@ export default function StoriesPage() {
 
             {/* 角色頭像 */}
             <div className="flex items-center gap-4 mb-4">
-              <PixelAvatar description={s.persona} size={64} />
+              <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                頭像
+              </div>
               <div>
                 <h2 className="magazine-heading">{s.title || "匿名故事"}</h2>
               </div>
