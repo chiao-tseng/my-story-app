@@ -45,3 +45,33 @@ CREATE POLICY "Anyone can read private info" ON story_private
 -- 創建政策：任何人都可以更新故事狀態（用於管理員功能）
 CREATE POLICY "Anyone can update story status" ON stories
   FOR UPDATE USING (true);
+
+-- 創建聯繫請求表
+CREATE TABLE IF NOT EXISTS contact_requests (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  story_id UUID REFERENCES stories(id) ON DELETE SET NULL,
+  requester_contact TEXT NOT NULL,
+  message TEXT,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'processed')),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 創建索引
+CREATE INDEX IF NOT EXISTS idx_contact_requests_story_id ON contact_requests(story_id);
+CREATE INDEX IF NOT EXISTS idx_contact_requests_status ON contact_requests(status);
+CREATE INDEX IF NOT EXISTS idx_contact_requests_created_at ON contact_requests(created_at);
+
+-- 啟用 RLS
+ALTER TABLE contact_requests ENABLE ROW LEVEL SECURITY;
+
+-- 創建政策：任何人都可以插入聯繫請求
+CREATE POLICY "Anyone can insert contact requests" ON contact_requests
+  FOR INSERT WITH CHECK (true);
+
+-- 創建政策：任何人都可以讀取聯繫請求（用於管理員功能）
+CREATE POLICY "Anyone can read contact requests" ON contact_requests
+  FOR SELECT USING (true);
+
+-- 創建政策：任何人都可以更新聯繫請求狀態（用於管理員功能）
+CREATE POLICY "Anyone can update contact request status" ON contact_requests
+  FOR UPDATE USING (true);

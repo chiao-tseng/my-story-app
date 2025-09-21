@@ -1,26 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import fs from "fs/promises";
 import { defaultRateLimit } from "@/lib/rateLimit";
-
-const CONTACT_PATH = path.join(process.cwd(), "data", "contact_requests.json");
-
-type ContactReq = {
-  id: string;
-  storyId?: string;
-  requesterContact: string;
-  message?: string;
-  createdAt: string;
-  status: "pending" | "processed";
-};
-
-async function readJson<T>(p: string, fallback: T): Promise<T> {
-  try { return JSON.parse(await fs.readFile(p, "utf8")) as T; } catch { return fallback; }
-}
-async function writeJson<T>(p: string, data: T) {
-  await fs.mkdir(path.dirname(p), { recursive: true });
-  await fs.writeFile(p, JSON.stringify(data, null, 2), "utf8");
-}
+import { saveContactRequest } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   // 速率限制檢查
@@ -37,20 +17,25 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { storyId, requesterContact, message } = await req.json().catch(() => ({}));
-  if (!requesterContact || String(requesterContact).trim().length < 3) {
-    return NextResponse.json({ error: "請提供可聯繫方式" }, { status: 400 });
+  try {
+    const { storyId, requesterContact, message } = await req.json().catch(() => ({}));
+    
+    if (!requesterContact || String(requesterContact).trim().length < 3) {
+      return NextResponse.json({ error: "請提供可聯繫方式" }, { status: 400 });
+    }
+
+    const contactRequest = {
+      story_id: storyId || null,
+      requester_contact: String(requesterContact).trim(),
+      message: (message || "").toString().slice(0, 2000),
+      status: "pending" as const,
+    };
+
+    await saveContactRequest(contactRequest);
+    
+    return NextResponse.json({ ok: true, message: "聯繫請求已提交" });
+  } catch (error) {
+    console.error('聯繫請求提交失敗:', error);
+    return NextResponse.json({ error: "提交失敗，請稍後再試" }, { status: 500 });
   }
-  const all = await readJson<ContactReq[]>(CONTACT_PATH, []);
-  const rec: ContactReq = {
-    id: crypto.randomUUID(),
-    storyId,
-    requesterContact: String(requesterContact).trim(),
-    message: (message || "").toString().slice(0, 2000),
-    createdAt: new Date().toISOString(),
-    status: "pending",
-  };
-  all.unshift(rec);
-  await writeJson(CONTACT_PATH, all);
-  return NextResponse.json({ ok: true, id: rec.id });
 }

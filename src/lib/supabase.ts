@@ -190,3 +190,88 @@ export async function getPrivateInfoByStoryId(storyId: string): Promise<PrivateI
     return null;
   }
 }
+
+// 聯繫請求資料類型
+export type ContactRequest = {
+  id: string;
+  story_id?: string;
+  requester_contact: string;
+  message?: string;
+  status: "pending" | "processed";
+  created_at: string;
+};
+
+export async function saveContactRequest(contactRequest: Omit<ContactRequest, 'id' | 'created_at'>): Promise<void> {
+  try {
+    const { error } = await supabase
+      .from('contact_requests')
+      .insert([{
+        ...contactRequest,
+        created_at: new Date().toISOString()
+      }]);
+    
+    if (error) {
+      console.error('儲存聯繫請求失敗:', error);
+      throw error;
+    }
+  } catch (error) {
+    console.error('儲存聯繫請求失敗:', error);
+    throw error;
+  }
+}
+
+export async function getAllContactRequests(): Promise<ContactRequest[]> {
+  try {
+    const { data, error } = await supabase
+      .from('contact_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error('讀取聯繫請求失敗:', error);
+      return [];
+    }
+    
+    return data || [];
+  } catch (error) {
+    console.error('讀取聯繫請求失敗:', error);
+    return [];
+  }
+}
+
+export async function getContactRequestsByStatus(status: ContactRequest['status']): Promise<ContactRequest[]> {
+  try {
+    const { data, error } = await supabase
+      .from('contact_requests')
+      .select('*')
+      .eq('status', status)
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error('篩選聯繫請求失敗:', error);
+      return [];
+    }
+    
+    return data || [];
+  } catch (error) {
+    console.error('篩選聯繫請求失敗:', error);
+    return [];
+  }
+}
+
+export async function updateContactRequestStatus(contactRequestId: string, status: ContactRequest['status']): Promise<void> {
+  try {
+    const { error } = await supabase
+      .from('contact_requests')
+      .update({ status })
+      .eq('id', contactRequestId);
+    
+    if (error) {
+      console.error('更新聯繫請求狀態失敗:', error);
+      throw error;
+    }
+  } catch (error) {
+    console.error('更新聯繫請求狀態失敗:', error);
+    throw error;
+  }
+}
