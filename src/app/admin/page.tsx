@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import StatusBadge from "@/components/StatusBadge";
 
-type Story = { id:string; persona:string; content:string; createdAt:string; status:"pending"|"published"|"rejected"|"withdrawn" };
+type Story = { id:string; persona:string; content:string; created_at:string; status:"pending"|"published"|"rejected"|"withdrawn" };
 
 export default function AdminPage() {
   const [pwd, setPwd] = useState("");
@@ -80,7 +80,7 @@ export default function AdminPage() {
               <div key={s.id} className="border rounded-xl p-4">
                 <div className="flex items-center justify-between mb-1">
                   <div className="text-xs text-gray-500">
-                    {new Date(s.createdAt).toLocaleString()} · {s.id}
+                    {new Date(s.created_at).toLocaleString()} · {s.id}
                   </div>
                   <StatusBadge status={s.status} />
                 </div>

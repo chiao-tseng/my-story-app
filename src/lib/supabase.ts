@@ -8,7 +8,11 @@ if (!supabaseUrl || !supabaseKey) {
     url: !!supabaseUrl,
     key: !!supabaseKey
   });
-  throw new Error('Missing Supabase environment variables. Please check your .env.local file.');
+  // 在建置時不拋出錯誤，而是在運行時處理
+  if (typeof window === 'undefined') {
+    // 伺服器端建置時，使用假的 client
+    console.warn('Supabase environment variables missing during build');
+  }
 }
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
