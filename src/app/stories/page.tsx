@@ -59,11 +59,11 @@ export default function StoriesPage() {
               <StatusBadge status={s.status} />
             </div>
 
-            {/* 角色頭像與標題 */}
+            {/* 角色頭像 */}
             <div className="flex items-center gap-4 mb-4">
               <PixelAvatar description={s.persona} size={64} />
               <div>
-                <h2 className="magazine-heading">{s.persona || "未命名角色"}</h2>
+                <h2 className="magazine-heading">匿名故事</h2>
               </div>
             </div>
 
