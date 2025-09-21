@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AvatarBuilder from '@/components/AvatarBuilder';
-// import AvatarGenerator from '@/components/AvatarGenerator'; // 暫時停用
+import AvatarGenerator from '@/components/AvatarGenerator';
 
 interface StoryForm {
   persona: string;
@@ -123,8 +123,8 @@ export default function SubmitPage() {
                 placeholder="請描述角色的外貌特徵，例如：膚色、髮色、眼睛顏色、服裝、配件等..."
               />
               
-                     {/* AI 生成臨摹圖 - 暫時停用 */}
-                     {/* <div className="magazine-card p-6 mt-6">
+                     {/* AI 生成臨摹圖 */}
+                     <div className="magazine-card p-6 mt-6">
                        <h4 className="magazine-heading mb-4">AI 角色臨摹圖</h4>
                        <AvatarGenerator 
                          description={formData.persona}
@@ -132,7 +132,7 @@ export default function SubmitPage() {
                            console.log('Generated image:', imageUrl);
                          }}
                        />
-                     </div> */}
+                     </div>
             </div>
 
             {/* Content 欄位 */}
