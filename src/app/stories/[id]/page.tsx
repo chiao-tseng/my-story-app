@@ -13,7 +13,8 @@ type Story = {
 
 async function getStory(id: string): Promise<Story | null> {
   try {
-    const res = await fetch(`/api/stories/${id}`, { cache: "no-store" });
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/stories/${id}`, { cache: "no-store" });
     if (!res.ok) {
       console.error(`API request failed: ${res.status} ${res.statusText}`);
       return null;
