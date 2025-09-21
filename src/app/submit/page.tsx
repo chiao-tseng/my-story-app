@@ -5,6 +5,7 @@ import AvatarBuilder from '@/components/AvatarBuilder';
 import AvatarGenerator from '@/components/AvatarGenerator';
 
 interface StoryForm {
+  title: string;
   persona: string;
   content: string;
   authorName: string;
@@ -13,6 +14,7 @@ interface StoryForm {
 
 export default function SubmitPage() {
   const [formData, setFormData] = useState<StoryForm>({
+    title: '',
     persona: '',
     content: '',
     authorName: '',
@@ -38,11 +40,11 @@ export default function SubmitPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // 檢查所有必填欄位
-    if (!formData.persona.trim() || !formData.content.trim() || !formData.authorName.trim() || !formData.authorContact.trim()) {
-      alert("請填寫所有必填欄位");
-      return;
-    }
+          // 檢查所有必填欄位
+          if (!formData.title.trim() || !formData.persona.trim() || !formData.content.trim() || !formData.authorName.trim() || !formData.authorContact.trim()) {
+            alert("請填寫所有必填欄位");
+            return;
+          }
     
     setIsSubmitting(true);
 
@@ -110,6 +112,20 @@ export default function SubmitPage() {
         {/* 左側：表單 */}
         <div className="space-y-8">
           <form onSubmit={handleSubmit} className="space-y-8">
+            {/* 故事標題 */}
+            <div>
+              <h3 className="magazine-heading mb-4">故事標題 *</h3>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                required
+                className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-red-600 transition-colors magazine-body"
+                placeholder="為你的故事取一個標題..."
+              />
+            </div>
+
             {/* 形象描述區塊 */}
             <div>
               <h3 className="magazine-heading mb-4">形象描述 *</h3>

@@ -6,6 +6,7 @@ import PixelAvatar from "@/components/PixelAvatar";
 
 type Story = {
   id: string;
+  title: string;
   persona: string;
   content: string;
   createdAt: string;
@@ -63,7 +64,7 @@ export default function StoriesPage() {
             <div className="flex items-center gap-4 mb-4">
               <PixelAvatar description={s.persona} size={64} />
               <div>
-                <h2 className="magazine-heading">匿名故事</h2>
+                <h2 className="magazine-heading">{s.title || "匿名故事"}</h2>
               </div>
             </div>
 

@@ -22,6 +22,7 @@ export const supabase = supabaseUrl && supabaseKey
 // 故事資料類型
 export type PublicStory = {
   id: string;
+  title: string;
   persona: string;
   content: string;
   created_at: string;

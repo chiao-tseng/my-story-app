@@ -46,17 +46,19 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const { persona, content, authorName, authorContact } = body as {
+  const { title, persona, content, authorName, authorContact } = body as {
+    title?: string;
     persona?: string;
     content?: string;
     authorName?: string;
     authorContact?: string;
   };
 
-  if (!persona || !content || !authorName || !authorContact) {
+  if (!title || !persona || !content || !authorName || !authorContact) {
     return NextResponse.json({ error: "所有欄位都是必填的" }, { status: 400 });
   }
 
+  const safeTitle = sanitizeText(title);
   const safePersona = sanitizeText(persona);
   const safeContent = sanitizeText(content);
 
@@ -65,6 +67,7 @@ export async function POST(req: NextRequest) {
 
   const newStory = {
     id,
+    title: safeTitle,
     persona: safePersona,
     content: safeContent,
     status: "pending" as const,

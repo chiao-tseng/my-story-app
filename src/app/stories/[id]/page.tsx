@@ -3,6 +3,7 @@ import PixelAvatar from "@/components/PixelAvatar";
 
 type Story = {
   id: string;
+  title: string;
   persona: string;
   content: string;
   createdAt: string;
@@ -35,7 +36,7 @@ export default async function StoryDetail({ params }: { params: Promise<{ id: st
       
       <div className="flex items-center gap-4 mb-6">
         <PixelAvatar description={story.persona} size={80} />
-        <h1 className="text-2xl font-bold">匿名故事</h1>
+        <h1 className="text-2xl font-bold">{story.title || "匿名故事"}</h1>
       </div>
       <article className="prose prose-neutral max-w-none whitespace-pre-wrap">
         {story.content}
