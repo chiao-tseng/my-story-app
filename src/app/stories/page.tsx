@@ -16,6 +16,7 @@ type Story = {
 export default function StoriesPage() {
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedStories, setExpandedStories] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetch("/api/stories", { cache: "no-store" })
@@ -30,6 +31,20 @@ export default function StoriesPage() {
         setLoading(false);
       });
   }, []);
+
+  const toggleExpanded = (storyId: string) => {
+    setExpandedStories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(storyId)) {
+        newSet.delete(storyId);
+      } else {
+        newSet.add(storyId);
+      }
+      return newSet;
+    });
+  };
+
+  const isExpanded = (storyId: string) => expandedStories.has(storyId);
 
   return (
     <main className="mx-auto max-w-6xl px-8 py-16">
@@ -68,21 +83,29 @@ export default function StoriesPage() {
               </div>
             </div>
 
-            {/* 故事預覽 */}
+            {/* 故事內容 */}
             <div className="mb-6">
-              <p className="magazine-body text-gray-700 leading-relaxed">
-                {s.content.length > 150 ? s.content.slice(0, 150) + "…" : s.content}
-              </p>
+              <div 
+                className={`magazine-body text-gray-700 leading-relaxed whitespace-pre-wrap transition-all duration-300 ${
+                  isExpanded(s.id) ? '' : 'line-clamp-3'
+                }`}
+              >
+                {s.content}
+              </div>
+              
+              {/* 展開/收合按鈕 */}
+              {s.content.length > 150 && (
+                <button
+                  onClick={() => toggleExpanded(s.id)}
+                  className="mt-2 text-red-600 hover:text-red-700 transition-colors magazine-caption"
+                >
+                  {isExpanded(s.id) ? '收起' : '查看更多...'}
+                </button>
+              )}
             </div>
 
             {/* 行動按鈕 */}
             <div className="space-y-3">
-              <Link 
-                href={`/stories/${s.id}`} 
-                className="magazine-button block text-center py-3 text-sm"
-              >
-                閱讀全文
-              </Link>
               <Link 
                 href={`/contact?storyId=${encodeURIComponent(s.id)}`} 
                 className="magazine-caption text-center block hover:text-red-600 transition-colors"
