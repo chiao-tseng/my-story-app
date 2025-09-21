@@ -108,9 +108,9 @@ export default function StoriesPage() {
             <div className="space-y-3">
               <Link 
                 href={`/contact?storyId=${encodeURIComponent(s.id)}`} 
-                className="magazine-button-accent block text-center py-3 text-sm hover:bg-red-700 transition-colors"
+                className="border border-gray-300 hover:border-gray-400 hover:bg-gray-50 block text-center py-3 text-sm transition-colors rounded"
               >
-                📞 聯繫出版社
+                聯繫出版社
               </Link>
             </div>
           </article>
