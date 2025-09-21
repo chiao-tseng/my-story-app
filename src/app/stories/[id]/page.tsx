@@ -14,16 +14,23 @@ type Story = {
 async function getStory(id: string): Promise<Story | null> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    console.log('Debug: baseUrl =', baseUrl);
+    console.log('Debug: fetching from', `${baseUrl}/api/stories/${id}`);
+    
     const res = await fetch(`${baseUrl}/api/stories/${id}`, { cache: "no-store" });
+    console.log('Debug: response status =', res.status);
+    console.log('Debug: response ok =', res.ok);
+    
     if (!res.ok) {
       console.error(`API request failed: ${res.status} ${res.statusText}`);
       return null;
     }
+    
     const data = await res.json();
-    console.log('Story data:', data);
+    console.log('Debug: story data =', data);
     return data;
   } catch (error) {
-    console.error('Error fetching story:', error);
+    console.error('Debug: Error fetching story:', error);
     return null;
   }
 }
@@ -48,11 +55,10 @@ export default async function StoryDetail({ params }: { params: Promise<{ id: st
       </div>
       
       <div className="flex items-center gap-4 mb-6">
-        <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs">
-          頭像
-        </div>
+        <PixelAvatar description={story.persona} size={80} />
         <h1 className="text-2xl font-bold">{story.title || "匿名故事"}</h1>
       </div>
+      
       <article className="prose prose-neutral max-w-none whitespace-pre-wrap">
         {story.content}
       </article>
