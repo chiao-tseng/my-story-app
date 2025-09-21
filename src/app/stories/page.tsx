@@ -109,7 +109,7 @@ export default function StoriesPage() {
               </div>
               
               {/* 展開/收合按鈕 */}
-              {s.content.length > 150 && (
+              {s.content.length > 80 && (
                 <button
                   onClick={() => toggleExpanded(s.id)}
                   className="mt-2 text-red-600 hover:text-red-700 transition-colors magazine-caption"
