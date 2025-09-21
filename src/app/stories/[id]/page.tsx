@@ -35,7 +35,9 @@ export default async function StoryDetail({ params }: { params: Promise<{ id: st
       </div>
       
       <div className="flex items-center gap-4 mb-6">
-        <PixelAvatar description={story.persona} size={80} />
+        <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+          頭像
+        </div>
         <h1 className="text-2xl font-bold">{story.title || "匿名故事"}</h1>
       </div>
       <article className="prose prose-neutral max-w-none whitespace-pre-wrap">
